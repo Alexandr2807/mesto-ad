@@ -1,11 +1,3 @@
-/*
-  Файл index.js является точкой входа в наше приложение
-  и только он должен содержать логику инициализации нашего приложения
-  используя при этом импорты из других файлов
-
-  Из index.js не допускается что то экспортировать
-*/
-
 import { initialCards } from "./cards.js";
 import { createCardElement, deleteCard, likeCard } from "./components/card.js";
 import { openModalWindow, closeModalWindow, setCloseModalWindowEventListeners } from "./components/modal.js";
@@ -80,6 +72,25 @@ const handleCardFormSubmit = (evt) => {
 profileForm.addEventListener("submit", handleProfileFormSubmit);
 cardForm.addEventListener("submit", handleCardFormSubmit);
 avatarForm.addEventListener("submit", handleAvatarFromSubmit);
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Находим ВСЕ формы на странице
+  const forms = document.querySelectorAll('form');
+  
+  forms.forEach(form => {
+    // Отключаем браузерную валидацию
+    form.setAttribute('novalidate', true);
+    
+    const submitButton = form.querySelector('.popup__button');
+    
+    if (submitButton) {
+      submitButton.classList.add('popup__button_disabled');
+      submitButton.disabled = true;
+    }
+  });
+  
+  console.log('Встроенная валидация отключена, кнопки форм заблокированы');
+});
 
 openProfileFormButton.addEventListener("click", () => {
   profileTitleInput.value = profileTitle.textContent;
