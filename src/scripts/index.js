@@ -88,8 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
       submitButton.disabled = true;
     }
   });
-  
-  console.log('Встроенная валидация отключена, кнопки форм заблокированы');
 });
 
 openProfileFormButton.addEventListener("click", () => {
