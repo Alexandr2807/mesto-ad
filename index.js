@@ -74,22 +74,22 @@ cardForm.addEventListener("submit", handleCardFormSubmit);
 avatarForm.addEventListener("submit", handleAvatarFromSubmit);
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Находим все формы
+  // Находим ВСЕ формы на странице
   const forms = document.querySelectorAll('form');
   
   forms.forEach(form => {
-    // Отключаем встроенную валидацию
-    form.setAttribute('novalidate', '');
+    // Отключаем браузерную валидацию
+    form.setAttribute('novalidate', true);
     
-    // Находим кнопки отправки в форме
-    const submitButtons = form.querySelectorAll('button[type="submit"]');
+    const submitButton = form.querySelector('.popup__button');
     
-    submitButtons.forEach(button => {
-      // Добавляем класс и атрибут disabled
-      button.classList.add('popup__button_disabled');
-      button.disabled = true;
-    });
+    if (submitButton) {
+      submitButton.classList.add('popup__button_disabled');
+      submitButton.disabled = true;
+    }
   });
+  
+  console.log('Встроенная валидация отключена, кнопки форм заблокированы');
 });
 
 openProfileFormButton.addEventListener("click", () => {
