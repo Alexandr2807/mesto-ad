@@ -165,8 +165,7 @@
 <!--      </div>-->
     </div>
 
-    <!-- ИЗМЕНЕНИЕ: добавлен type="module" для работы с Vite -->
-    <script src="./src/scripts/index.js" type="module"></script>
+    <script src="./src/scripts/index.js" defer type="module"></script>
 
     <template id="card-template">
       <li class="places__item card">
