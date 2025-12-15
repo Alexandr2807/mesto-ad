@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const nameInput = document.getElementById('user-name');
   const descriptionInput = document.getElementById('user-description');
   const submitEditButton = editForm.querySelector('.popup__button');
-  const nameError = document.getElementById('user-name-error');
+  const nameError  = document.getElementById('user-name-error');
   const descError = document.getElementById('user-description-error');
   
   forms.forEach(form => {
@@ -117,10 +117,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (descValue === '') {
       descError.textContent = 'Поле должно быть заполнено';
       isValid = false;
-    } else if (descValue < 2) {
+    } else if (descValue.length < 2) {
       descError.textContent = 'Описание слишком короткое';
       isValid = false;
-    } else if (descValue > 200) {
+    } else if (descValue.length > 200) {
       descError.textContent = 'Описание слишком длинное';
       isValid = false;
     } else {
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     submitEditButton.disabled = !isValid;
-    submitEditButton.classList.togle('popup__button_disabled', !isValid);
+    submitEditButton.classList.toggle('popup__button_disabled', !isValid);
 
     return isValid;
 
