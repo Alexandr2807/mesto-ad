@@ -234,7 +234,11 @@ document.addEventListener('DOMContentLoaded', function() {
   nameInput.addEventListener('input', validateProfileForm);
   descriptionInput.addEventListener('input', validateProfileForm);
 
+  placeName.addEventListener('input', validatePlaceForm);
+  placeLink.addEventListener('input', validatePlaceForm);
+
   validateProfileForm();
+  validatePlaceForm();
 });
 
 openProfileFormButton.addEventListener("click", () => {
