@@ -74,14 +74,24 @@ cardForm.addEventListener("submit", handleCardFormSubmit);
 avatarForm.addEventListener("submit", handleAvatarFromSubmit);
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Находим ВСЕ формы на странице
+  // Находим формы на странице
   const forms = document.querySelectorAll('.popup__form');
+  
+  // для валидации профиля
   const editForm = document.forms['edit-profile'];
   const nameInput = document.getElementById('user-name');
   const descriptionInput = document.getElementById('user-description');
   const submitEditButton = editForm.querySelector('.popup__button');
   const nameError  = document.getElementById('user-name-error');
   const descError = document.getElementById('user-description-error');
+  
+  // для валидации создания места
+  const newPlaceForm = document.forms['new-place'];
+  const placeName = document.getElementById('place-name');
+  const placeLink = document.getElementById('place-link');
+  const makeNewPlaceButton = newPlaceForm.querySelector('.popup__button');
+  const placeNameError = document.getElementById('place-name-error');
+  const placeLinkError = document.getElementById('place-link-error');
   
   forms.forEach(form => {
     // Отключаем браузерную валидацию
@@ -95,12 +105,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  function isValidUrl(string) {
+    try {
+      new URL(string);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+  
   const nameRegex = /^[A-Za-zА-Яа-яЁё\s\-]+$/;
   
-  function validateForm() {
+  function validateProfileForm() {
     let isNameValid = true;
     let isDescValid = true;
-    
+
     // валидация имени
     const nameValue = nameInput.value.trim();
     
@@ -153,19 +172,69 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // общая валидность
-    const isFormValid = isNameValid && isDescValid;
+    const isProfileFormValid = isNameValid && isDescValid;
     
     // кнопку редактируем
     submitEditButton.disabled = !isFormValid;
     submitEditButton.classList.toggle('popup__button_disabled', !isFormValid);
     
-    return isFormValid;
+    return isProfileFormValid;
   }
 
-  nameInput.addEventListener('input', validateForm);
-  descriptionInput.addEventListener('input', validateForm);
+  function validatePlaceForm() {
+    let isPlaceNameValid = true;
+    let isPlaceLinkValid = true;
 
-  validateForm();
+    const placeNameText = placeName.value.trim();
+
+    placeNameError.textContent = '';
+    placeNameError.classList.remove('popup__error_visible');
+
+    if (placeNameText === '') {
+      placeNameError.textContent = 'Это поле обязательно для заполнения';
+      placeNameError.classList.add('popup__error_visible');
+      isPlaceNameValid = false;
+    } else if (placeNameText.length < 2) {
+      placeNameError.textContent = 'Минимальная длина 2 символа';
+      placeNameError.classList.add('popup__error_visible');
+      isPlaceNameValid = false;
+    } else if (placeNameText.length > 30) {
+      placeNameError.textContent = 'Максимальная длина 30 символов';
+      placeNameError.classList.add('popup__error_visible');
+      isPlaceNameValid = false;
+    } else if (!nameRegex.test(placeNameText)) {
+      const customMessagePlace = placeName.getAttribute('data-error-message');
+      placeNameError.classList.add('popup__error_visible');
+      placeNameError.textContent = customMessagePlace || 
+        'Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы';
+      isPlaceNameValid = false;
+    }
+
+    const placeLinkText = placeLink.value.trim();
+
+    placeLinkError.textContent = '';
+    placeLinkError.classList.remove('popup__error_visible');
+
+    if (placeLinkText === '') {
+      placeLinkError.textContent = 'Это поле обязательно для заполнения';
+      isPlaceLinkValid = false;
+    } else if (!isValidUrl(placeLinkText)) {
+      placeLinkError.textContent = 'Введите корректную ссылку';
+      isPlaceLinkValid = false;
+    }
+
+    const isPlaceValid = isPlaceNameValid && isPlaceLinkValid;
+
+    makeNewPlaceButton.disabled = !isPlaceValid;
+    makeNewPlaceButton.classList.toggle('popup__button_disabled', !isPlaceValid);
+
+    return isPlaceValid;
+  } 
+
+  nameInput.addEventListener('input', validateProfileForm);
+  descriptionInput.addEventListener('input', validateProfileForm);
+
+  validateProfileForm();
 });
 
 openProfileFormButton.addEventListener("click", () => {
