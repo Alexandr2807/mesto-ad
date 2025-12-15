@@ -75,7 +75,12 @@ avatarForm.addEventListener("submit", handleAvatarFromSubmit);
 
 document.addEventListener('DOMContentLoaded', function() {
   // Находим ВСЕ формы на странице
-  const forms = document.querySelectorAll('form');
+  const forms = document.querySelectorAll("form");
+  const nameInput = forms.getElementById("user-name");
+  const descriptionInput = forms.getElementById("user-description");
+  const submitEditButton = forms.querySelector("button");
+  const nameError = document.getElementById('user-name-error');
+  const descError = document.getElementById('user-description-error');
   
   forms.forEach(form => {
     // Отключаем браузерную валидацию
@@ -88,6 +93,48 @@ document.addEventListener('DOMContentLoaded', function() {
       submitButton.disabled = true;
     }
   });
+
+  function validateForm() {
+    let isValid = true;
+
+    const nameValue = nameInput.value.trim();
+    if (nameValue === '') {
+      nameError.textContent = 'Поле должно быть заполнено';
+      isValid = false;
+    } else if (nameValue.length < 2) {
+      nameError.textContent = 'Имя слишком короткое';
+      isValid = false;
+    } else if (nameValue.length > 40) {
+      nameError.textContent = 'Имя слишком длинное';
+      isValid = false;
+    } else {
+      nameError.textContent = '';
+      isValid = true;
+    }
+
+    const descValue = descriptionInput.value.trim();
+    if (descValue === '') {
+      descError.textContent = 'Поле должно быть заполнено';
+      isValid = false;
+    } else if (descValue < 2) {
+      descError.textContent = 'Описание слишком короткое';
+      isValid = false;
+    } else if (descValue > 200) {
+      descError.textContent = 'Описание слишком длинное';
+      isValid = false;
+    } else {
+      descError.textContent = '';
+      isValid = true;
+    }
+
+    submitEditButton.disabled = !isValid;
+    submitEditButton.classList.togle('popup__button_disabled', !isValid);
+
+    return isValid;
+  }
+
+  nameInput.addEventListener('submit', validateForm);
+  descriptionInput.addEventListener('submit', validateForm);
 });
 
 openProfileFormButton.addEventListener("click", () => {
@@ -105,6 +152,8 @@ openCardFormButton.addEventListener("click", () => {
   cardForm.reset();
   openModalWindow(cardFormModalWindow);
 });
+
+
 
 // отображение карточек
 initialCards.forEach((data) => {
