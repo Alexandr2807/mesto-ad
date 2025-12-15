@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const placeNameError = document.getElementById('place-name-error');
   const placeLinkError = document.getElementById('place-link-error');
 
-  // для валидации автара
+  // для валидации аватара
   const newAvatarForm = document.forms['edit-avatar'];
   const avatarLink = document.getElementById('user-avatar');
   const newAvatarButton = newAvatarForm.querySelector('.popup__button');
@@ -172,8 +172,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const isProfileFormValid = isNameValid && isDescValid;
     
     // кнопку редактируем
-    submitEditButton.disabled = !isFormValid;
-    submitEditButton.classList.toggle('popup__button_disabled', !isFormValid);
+    submitEditButton.disabled = !isProfileFormValid;
+    submitEditButton.classList.toggle('popup__button_disabled', !isProfileFormValid);
     
     return isProfileFormValid;
   }
