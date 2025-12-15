@@ -75,7 +75,7 @@ avatarForm.addEventListener("submit", handleAvatarFromSubmit);
 
 document.addEventListener('DOMContentLoaded', function() {
   // Находим ВСЕ формы на странице
-  const forms = document.querySelector('.popup__form');
+  const forms = document.querySelectorAll('.popup__form');
   const editForm = document.forms['edit-profile'];
   const nameInput = document.getElementById('user-name');
   const descriptionInput = document.getElementById('user-description');
@@ -132,12 +132,12 @@ document.addEventListener('DOMContentLoaded', function() {
     submitEditButton.classList.toggle('popup__button_disabled', !isValid);
 
     return isValid;
-
-    validateForm();
   }
 
-  nameInput.addEventListener('submit', validateForm);
-  descriptionInput.addEventListener('submit', validateForm);
+  nameInput.addEventListener('input', validateForm);
+  descriptionInput.addEventListener('input', validateForm);
+
+  validateForm();
 });
 
 openProfileFormButton.addEventListener("click", () => {
