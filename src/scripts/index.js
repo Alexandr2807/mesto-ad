@@ -108,12 +108,12 @@ document.addEventListener('DOMContentLoaded', function() {
     avatarLinkError.classList.remove('popup__error_visible');
 
     if (avatarLinkValue === '') {
-      placeLinkError.textContent = 'Это поле обязательно для заполнения';
-      placeLinkError.classList.add('popup__error_visible');
+      avatarLinkError.textContent = 'Это поле обязательно для заполнения';
+      avatarLinkError.classList.add('popup__error_visible');
       isAvatarLinkValid = false;
     } else if (!isValidUrl(avatarLinkValue)) {
-      placeLinkError.textContent = 'Введите корректную ссылку';
-      placeLinkError.classList.add('popup__error_visible');
+      avatarLinkError.textContent = 'Введите корректную ссылку';
+      avatarLinkError.classList.add('popup__error_visible');
       isAvatarLinkValid = false;
     }
 
