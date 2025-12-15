@@ -99,40 +99,19 @@ document.addEventListener('DOMContentLoaded', function() {
   const newAvatarButton = newAvatarForm.querySelector('.popup__button');
   const avatarLinkError = document.getElementById('user-avatar-error');
 
-  function validateAvatarForm() {
-    let isAvatarLinkValid = true;
-
-    const avatarLinkValue = avatarLink.value.trim();
-
-    avatarLinkError.textContent = '';
-    avatarLinkError.classList.remove('popup__error_visible');
-
-    if (avatarLinkValue === '') {
-      avatarLinkError.textContent = 'Это поле обязательно для заполнения';
-      avatarLinkError.classList.add('popup__error_visible');
-      isAvatarLinkValid = false;
-    } else if (!isValidUrl(avatarLinkValue)) {
-      avatarLinkError.textContent = 'Введите корректную ссылку';
-      avatarLinkError.classList.add('popup__error_visible');
-      isAvatarLinkValid = false;
-    }
-
-    newAvatarButton.disabled = !isAvatarLinkValid;
-    newAvatarButton.classList.toggle('popup__button_disabled', !isAvatarLinkValid);
-    
-    return isAvatarLinkValid;
-  }
-  
-  function isValidUrl(string) {
-    try {
-      new URL(string);
-      return true;
-    } catch (_) {
-      return false;
-    }
-  }
-  
   const nameRegex = /^[A-Za-zА-Яа-яЁё\s\-]+$/;
+  
+  forms.forEach(form => {
+    // отключаем браузерную валидацию
+    form.setAttribute('novalidate', true);
+    
+    const submitButton = form.querySelector('.popup__button');
+    
+    if (submitButton) {
+      submitButton.classList.add('popup__button_disabled');
+      submitButton.disabled = true;
+    }
+  });
   
   function validateProfileForm() {
     let isNameValid = true;
@@ -199,6 +178,15 @@ document.addEventListener('DOMContentLoaded', function() {
     return isProfileFormValid;
   }
 
+  function isValidUrl(string) {
+    try {
+      new URL(string);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
   function validatePlaceForm() {
     let isPlaceNameValid = true;
     let isPlaceLinkValid = true;
@@ -251,17 +239,29 @@ document.addEventListener('DOMContentLoaded', function() {
     return isPlaceValid;
   } 
 
-  forms.forEach(form => {
-    // отключаем браузерную валидацию
-    form.setAttribute('novalidate', true);
-    
-    const submitButton = form.querySelector('.popup__button');
-    
-    if (submitButton) {
-      submitButton.classList.add('popup__button_disabled');
-      submitButton.disabled = true;
+  function validateAvatarForm() {
+    let isAvatarLinkValid = true;
+
+    const avatarLinkValue = avatarLink.value.trim();
+
+    avatarLinkError.textContent = '';
+    avatarLinkError.classList.remove('popup__error_visible');
+
+    if (avatarLinkValue === '') {
+      avatarLinkError.textContent = 'Это поле обязательно для заполнения';
+      avatarLinkError.classList.add('popup__error_visible');
+      isAvatarLinkValid = false;
+    } else if (!isValidUrl(avatarLinkValue)) {
+      avatarLinkError.textContent = 'Введите корректную ссылку';
+      avatarLinkError.classList.add('popup__error_visible');
+      isAvatarLinkValid = false;
     }
-  });
+
+    newAvatarButton.disabled = !isAvatarLinkValid;
+    newAvatarButton.classList.toggle('popup__button_disabled', !isAvatarLinkValid);
+    
+    return isAvatarLinkValid;
+  }
 
   nameInput.addEventListener('input', validateProfileForm);
   descriptionInput.addEventListener('input', validateProfileForm);
