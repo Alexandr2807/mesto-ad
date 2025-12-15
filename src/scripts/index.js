@@ -102,50 +102,64 @@ document.addEventListener('DOMContentLoaded', function() {
   const nameRegex = /^[A-Za-zА-Яа-яЁё\s\-]+$/;
   
   function validateForm() {
-    let isValid = true;
-
+    console.log('=== Валидация запущена ===');
+    
+    let isNameValid = true;
+    let isDescValid = true;
+    
+    // валидация имени
     const nameValue = nameInput.value.trim();
+    console.log('Имя для проверки:', nameValue);
+    
+    // сбрасываем ошибку
+    nameError.textContent = '';
+    
+    // проверка имени
     if (nameValue === '') {
-      nameError.textContent = 'Поле должно быть заполнено';
-      isValid = false;
+      nameError.textContent = 'Это поле обязательно для заполнения';
+      isNameValid = false;
     } else if (nameValue.length < 2) {
-      nameError.textContent = 'Имя слишком короткое';
-      isValid = false;
+      nameError.textContent = 'Минимальная длина 2 символа';
+      isNameValid = false;
     } else if (nameValue.length > 40) {
-      nameError.textContent = 'Имя слишком длинное';
-      isValid = false;
+      nameError.textContent = 'Максимальная длина 40 символов';
+      isNameValid = false;
     } else if (!nameRegex.test(nameValue)) {
-      nameError.textContent = nameInput.getAttribute('data-error-message') || 
-      'Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы';
-      isValid = false;
-    } else {
-      nameError.textContent = '';
-      isValid = true;
+      // кастомное сообщение из data-error-message
+      const customMessage = nameInput.getAttribute('data-error-message');
+      nameError.textContent = customMessage || 
+        'Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы';
+      isNameValid = false;
     }
-
+    
+    // валидация описания
     const descValue = descriptionInput.value.trim();
+    console.log('Описание для проверки:', descValue);
+    
+    // сбрасываем ошибку
+    descError.textContent = '';
+    
+    // проверка описания
     if (descValue === '') {
-      descError.textContent = 'Поле должно быть заполнено';
-      isValid = false;
+      descError.textContent = 'Это поле обязательно для заполнения';
+      isDescValid = false;
     } else if (descValue.length < 2) {
-      descError.textContent = 'Описание слишком короткое';
-      isValid = false;
+      descError.textContent = 'Минимальная длина 2 символа';
+      isDescValid = false;
     } else if (descValue.length > 200) {
-      descError.textContent = 'Описание слишком длинное';
-      isValid = false;
-    } else if (!nameRegex.test(nameValue)) {
-      nameError.textContent = nameInput.getAttribute('data-error-message') || 
-      'Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы';
-      isValid = false;
-    } else {
-      descError.textContent = '';
-      isValid = true;
+      descError.textContent = 'Максимальная длина 200 символов';
+      isDescValid = false;
     }
-
-    submitEditButton.disabled = !isValid;
-    submitEditButton.classList.toggle('popup__button_disabled', !isValid);
-
-    return isValid;
+    
+    // общая валидность
+    const isFormValid = isNameValid && isDescValid;
+    console.log('Результат:', { isNameValid, isDescValid, isFormValid });
+    
+    // кнопку редактируем
+    submitEditButton.disabled = !isFormValid;
+    submitEditButton.classList.toggle('popup__button_disabled', !isFormValid);
+    
+    return isFormValid;
   }
 
   nameInput.addEventListener('input', validateForm);
