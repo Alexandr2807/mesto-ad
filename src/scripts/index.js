@@ -75,10 +75,11 @@ avatarForm.addEventListener("submit", handleAvatarFromSubmit);
 
 document.addEventListener('DOMContentLoaded', function() {
   // Находим ВСЕ формы на странице
-  const forms = document.forms['edit-profile'];
+  const forms = document.querySelector('.popup__form');
+  const editForm = document.forms['edit-profile'];
   const nameInput = document.getElementById('user-name');
   const descriptionInput = document.getElementById('user-description');
-  const submitEditButton = forms.querySelector('.popup__button');
+  const submitEditButton = editForm.querySelector('.popup__button');
   const nameError = document.getElementById('user-name-error');
   const descError = document.getElementById('user-description-error');
   
