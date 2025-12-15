@@ -98,14 +98,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const nameRegex = /^[A-Za-zА-Яа-яЁё\s\-]+$/;
   
   function validateForm() {
-    console.log('=== Валидация запущена ===');
-    
     let isNameValid = true;
     let isDescValid = true;
     
     // валидация имени
     const nameValue = nameInput.value.trim();
-    console.log('Имя для проверки:', nameValue);
     
     // сбрасываем ошибку
     nameError.textContent = '';
@@ -130,7 +127,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // валидация описания
     const descValue = descriptionInput.value.trim();
-    console.log('Описание для проверки:', descValue);
     
     // сбрасываем ошибку
     descError.textContent = '';
@@ -149,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // общая валидность
     const isFormValid = isNameValid && isDescValid;
-    console.log('Результат:', { isNameValid, isDescValid, isFormValid });
     
     // кнопку редактируем
     submitEditButton.disabled = !isFormValid;
