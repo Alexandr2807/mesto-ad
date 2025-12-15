@@ -92,19 +92,37 @@ document.addEventListener('DOMContentLoaded', function() {
   const makeNewPlaceButton = newPlaceForm.querySelector('.popup__button');
   const placeNameError = document.getElementById('place-name-error');
   const placeLinkError = document.getElementById('place-link-error');
-  
-  forms.forEach(form => {
-    // Отключаем браузерную валидацию
-    form.setAttribute('novalidate', true);
-    
-    const submitButton = form.querySelector('.popup__button');
-    
-    if (submitButton) {
-      submitButton.classList.add('popup__button_disabled');
-      submitButton.disabled = true;
-    }
-  });
 
+  // для валидации автара
+  const newAvatarForm = document.forms['edit-avatar'];
+  const avatarLink = document.getElementById('user-avatar');
+  const newAvatarButton = newAvatarForm.querySelector('.popup__button');
+  const avatarLinkError = document.getElementById('user-avatar-error');
+
+  function validateAvatarForm() {
+    let isAvatarLinkValid = true;
+
+    const avatarLinkValue = avatarLink.value.trim();
+
+    avatarLinkError.textContent = '';
+    avatarLinkError.classList.remove('popup__error_visible');
+
+    if (avatarLinkValue === '') {
+      placeLinkError.textContent = 'Это поле обязательно для заполнения';
+      placeLinkError.classList.add('popup__error_visible');
+      avatarLinkError = false;
+    } else if (!isValidUrl(avatarLinkValue)) {
+      placeLinkError.textContent = 'Введите корректную ссылку';
+      placeLinkError.classList.add('popup__error_visible');
+      avatarLinkError = false;
+    }
+
+    newAvatarButton.disabled = !isAvatarLinkValid;
+    newAvatarButton.classList.toggle('popup__button_disabled', !isAvatarLinkValid);
+    
+    return isAvatarLinkValid;
+  }
+  
   function isValidUrl(string) {
     try {
       new URL(string);
@@ -232,6 +250,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     return isPlaceValid;
   } 
+
+  forms.forEach(form => {
+    // Отключаем браузерную валидацию
+    form.setAttribute('novalidate', true);
+    
+    const submitButton = form.querySelector('.popup__button');
+    
+    if (submitButton) {
+      submitButton.classList.add('popup__button_disabled');
+      submitButton.disabled = true;
+    }
+  });
 
   nameInput.addEventListener('input', validateProfileForm);
   descriptionInput.addEventListener('input', validateProfileForm);
