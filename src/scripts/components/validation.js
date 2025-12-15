@@ -1,14 +1,14 @@
 // Валидация формы
 function showInputError(formElement, inputElement, errorMessage, config) {
-  // Находим элемент ошибки по id поля + "-error"
+  // находит элемент ошибки
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   
   if (errorElement) {
-    // Добавляем класс ошибки к полю ввода
+    // добавляет класс ошибки к полю ввода
     inputElement.classList.add(config.inputErrorClass);
-    // Устанавливаем текст ошибки
+    // устанавливает текст ошибки
     errorElement.textContent = errorMessage;
-    // Делаем ошибку видимой
+    // делает ошибку видимой
     errorElement.classList.add(config.errorClass);
   }
 }
@@ -28,12 +28,12 @@ function checkInputValidity(formElement, inputElement, config) {
   let isValid = true;
   let errorMessage = '';
   
-  // Проверяем если поле пустое (обязательное)
+  // проверяет на пустое поле
   if (inputElement.hasAttribute('required') && !inputElement.value.trim()) {
     errorMessage = 'Это поле обязательно для заполнения';
     isValid = false;
   }
-  // Проверка минимальной длины
+  // проверка минимальной длины
   else if (inputElement.hasAttribute('minlength')) {
     const minLength = parseInt(inputElement.getAttribute('minlength'));
     if (inputElement.value.length < minLength && inputElement.value.length > 0) {
@@ -41,7 +41,7 @@ function checkInputValidity(formElement, inputElement, config) {
       isValid = false;
     }
   }
-  // Проверка максимальной длины
+  // проверка максимальной длины
   else if (inputElement.hasAttribute('maxlength')) {
     const maxLength = parseInt(inputElement.getAttribute('maxlength'));
     if (inputElement.value.length > maxLength) {
@@ -49,7 +49,7 @@ function checkInputValidity(formElement, inputElement, config) {
       isValid = false;
     }
   }
-  // Проверка для URL полей
+  // проверка для полей ссылок
   else if ((inputElement.type === 'url' || 
            inputElement.classList.contains('popup__input_type_url') ||
            inputElement.classList.contains('popup__input_type_avatar')) && 
@@ -57,11 +57,11 @@ function checkInputValidity(formElement, inputElement, config) {
     try {
       new URL(inputElement.value);
     } catch (_) {
-      errorMessage = 'Введите корректный URL';
+      errorMessage = 'Введите корректную ссылку';
       isValid = false;
     }
   }
-  // Кастомная проверка для имени (регулярное выражение)
+  // проверка для имени регулярное выражение
   else if ((inputElement.classList.contains('popup__input_type_name') || 
            inputElement.classList.contains('popup__input_type_card-name')) &&
            inputElement.value.trim() !== '') {
@@ -73,7 +73,7 @@ function checkInputValidity(formElement, inputElement, config) {
     }
   }
   
-  // Показываем или скрываем ошибку
+  // показывает/скрывает ошибку
   if (!isValid) {
     showInputError(formElement, inputElement, errorMessage, config);
   } else {
@@ -104,7 +104,7 @@ function enableSubmitButton(buttonElement, config) {
 }
 
 function toggleButtonState(inputList, buttonElement, formElement, config) {
-  // Проверяем все поля
+  // проверяет все поля
   const isFormValid = !hasInvalidInput(inputList, formElement, config);
   
   if (!isFormValid) {
@@ -114,14 +114,14 @@ function toggleButtonState(inputList, buttonElement, formElement, config) {
   }
 }
 
-// Функция для добавления атрибутов полям ввода
+// функция добавления атрибутов полям ввода
 function setupInputAttributes(formElement) {
   const inputs = formElement.querySelectorAll('input');
   
   inputs.forEach(input => {
-    // Определяем тип поля и устанавливаем соответствующие атрибуты
+    // определяет тип поля и выставляет соответствующие атрибуты
     if (input.classList.contains('popup__input_type_name')) {
-      // Поле имени профиля
+      // поле имени профиля
       input.setAttribute('required', 'true');
       input.setAttribute('minlength', '2');
       input.setAttribute('maxlength', '40');
@@ -130,13 +130,13 @@ function setupInputAttributes(formElement) {
       }
     } 
     else if (input.classList.contains('popup__input_type_description')) {
-      // Поле описания профиля
+      // поле описания профиля
       input.setAttribute('required', 'true');
       input.setAttribute('minlength', '2');
       input.setAttribute('maxlength', '200');
     }
     else if (input.classList.contains('popup__input_type_card-name')) {
-      // Поле названия карточки
+      // поле названия карточки
       input.setAttribute('required', 'true');
       input.setAttribute('minlength', '2');
       input.setAttribute('maxlength', '30');
@@ -146,29 +146,29 @@ function setupInputAttributes(formElement) {
     }
     else if (input.type === 'url' || input.classList.contains('popup__input_type_url') || 
              input.classList.contains('popup__input_type_avatar')) {
-      // Поле URL (карточки и аватара)
+      // поля ссылок
       input.setAttribute('required', 'true');
     }
   });
 }
 
 function setEventListeners(formElement, config) {
-  // Сначала настраиваем атрибуты полям
+  // настраивает атрибуты полям
   setupInputAttributes(formElement);
   
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
   
-  // Блокируем кнопку при инициализации
+  // блокирует кнопку при инициализации
   disableSubmitButton(buttonElement, config);
   
-  // Проверяем все поля при загрузке
+  // проверяет все поля при загрузке
   inputList.forEach((inputElement) => {
     checkInputValidity(formElement, inputElement, config);
   });
   toggleButtonState(inputList, buttonElement, formElement, config);
   
-  // Вешаем обработчики на ввод
+  // обработчики на ввод
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       checkInputValidity(formElement, inputElement, config);
@@ -181,12 +181,12 @@ function clearValidation(formElement, config) {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
   
-  // Скрываем все ошибки
+  // скрывает все ошибки
   inputList.forEach((inputElement) => {
     hideInputError(formElement, inputElement, config);
   });
   
-  // Блокируем кнопку
+  // блокирует кнопку
   disableSubmitButton(buttonElement, config);
 }
 
@@ -194,7 +194,7 @@ function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   
   formList.forEach((formElement) => {
-    // Отключаем браузерную валидацию
+    // отключает браузерную валидацию
     formElement.setAttribute('novalidate', true);
     
     setEventListeners(formElement, config);
