@@ -1,11 +1,7 @@
 import { initialCards } from "./cards.js";
 import { createCardElement, deleteCard, likeCard } from "./components/card.js";
 import { openModalWindow, closeModalWindow, setCloseModalWindowEventListeners } from "./components/modal.js";
-//
-console.log('После исправления:');
-console.log('user-name-error:', document.getElementById('user-name-error'));
-console.log('user-description-error:', document.getElementById('user-description-error'));
-//
+
 // DOM узлы
 const placesWrap = document.querySelector(".places__list");
 const profileFormModalWindow = document.querySelector(".popup_type_edit");
