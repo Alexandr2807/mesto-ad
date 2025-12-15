@@ -110,11 +110,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (avatarLinkValue === '') {
       placeLinkError.textContent = 'Это поле обязательно для заполнения';
       placeLinkError.classList.add('popup__error_visible');
-      avatarLinkError = false;
+      isAvatarLinkValid = false;
     } else if (!isValidUrl(avatarLinkValue)) {
       placeLinkError.textContent = 'Введите корректную ссылку';
       placeLinkError.classList.add('popup__error_visible');
-      avatarLinkError = false;
+      isAvatarLinkValid = false;
     }
 
     newAvatarButton.disabled = !isAvatarLinkValid;
@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
   } 
 
   forms.forEach(form => {
-    // Отключаем браузерную валидацию
+    // отключаем браузерную валидацию
     form.setAttribute('novalidate', true);
     
     const submitButton = form.querySelector('.popup__button');
