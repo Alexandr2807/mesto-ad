@@ -1,22 +1,11 @@
 import { initialCards } from "./cards.js";
 import { createCardElement, deleteCard, likeCard } from "./components/card.js";
 import { openModalWindow, closeModalWindow, setCloseModalWindowEventListeners } from "./components/modal.js";
-
-// dvsi
-// Диагностика: проверяем что есть в DOM
-console.log('=== ДИАГНОСТИКА DOM ===');
-console.log('1. Элемент user-name-error:', document.getElementById('user-name-error'));
-console.log('2. Элемент user-description-error:', document.getElementById('user-description-error'));
-console.log('3. Форма edit-profile:', document.forms['edit-profile']);
-console.log('4. Все формы:', document.querySelectorAll('form').length);
-
-// Проверяем HTML всей формы
-const form = document.forms['edit-profile'];
-if (form) {
-  console.log('5. HTML формы:', form.outerHTML);
-}
-// fsopdsvs
-
+//
+console.log('После исправления:');
+console.log('user-name-error:', document.getElementById('user-name-error'));
+console.log('user-description-error:', document.getElementById('user-description-error'));
+//
 // DOM узлы
 const placesWrap = document.querySelector(".places__list");
 const profileFormModalWindow = document.querySelector(".popup_type_edit");
