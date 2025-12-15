@@ -106,20 +106,25 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // сбрасываем ошибку
     nameError.textContent = '';
+    nameError.classList.remove('popup__error_visible');
     
     // проверка имени
     if (nameValue === '') {
       nameError.textContent = 'Это поле обязательно для заполнения';
+      nameError.classList.add('popup__error_visible');
       isNameValid = false;
     } else if (nameValue.length < 2) {
       nameError.textContent = 'Минимальная длина 2 символа';
+      nameError.classList.add('popup__error_visible');
       isNameValid = false;
     } else if (nameValue.length > 40) {
       nameError.textContent = 'Максимальная длина 40 символов';
+      nameError.classList.add('popup__error_visible');
       isNameValid = false;
     } else if (!nameRegex.test(nameValue)) {
       // кастомное сообщение из data-error-message
       const customMessage = nameInput.getAttribute('data-error-message');
+      nameError.classList.add('popup__error_visible');
       nameError.textContent = customMessage || 
         'Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы';
       isNameValid = false;
@@ -130,16 +135,20 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // сбрасываем ошибку
     descError.textContent = '';
+    descError.classList.remove('popup__error_visible');
     
     // проверка описания
     if (descValue === '') {
       descError.textContent = 'Это поле обязательно для заполнения';
+      descError.classList.add('popup__error_visible');
       isDescValid = false;
     } else if (descValue.length < 2) {
       descError.textContent = 'Минимальная длина 2 символа';
+      descError.classList.add('popup__error_visible');
       isDescValid = false;
     } else if (descValue.length > 200) {
       descError.textContent = 'Максимальная длина 200 символов';
+      descError.classList.add('popup__error_visible');
       isDescValid = false;
     }
     
