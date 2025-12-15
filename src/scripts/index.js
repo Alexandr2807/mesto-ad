@@ -108,10 +108,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (nameValue === '') {
       nameError.textContent = 'Поле должно быть заполнено';
       isValid = false;
-    } else if (nameValue.length < 2) {
+    } else if (nameValue.length.value() < 2) {
       nameError.textContent = 'Имя слишком короткое';
       isValid = false;
-    } else if (nameValue.length > 40) {
+    } else if (nameValue.length.value() > 40) {
       nameError.textContent = 'Имя слишком длинное';
       isValid = false;
     } else if (!nameRegex.test(nameValue)) {
@@ -127,10 +127,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (descValue === '') {
       descError.textContent = 'Поле должно быть заполнено';
       isValid = false;
-    } else if (descValue.length < 2) {
+    } else if (descValue.length.value() < 2) {
       descError.textContent = 'Описание слишком короткое';
       isValid = false;
-    } else if (descValue.length > 200) {
+    } else if (descValue.length.value() > 200) {
       descError.textContent = 'Описание слишком длинное';
       isValid = false;
     } else if (!nameRegex.test(nameValue)) {
