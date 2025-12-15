@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (!nameRegex.test(nameValue)) {
       nameError.textContent = nameInput.getAttribute('data-error-message') || 
       'Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы';
-      isNameValid = false;
+      isValid = false;
     } else {
       nameError.textContent = '';
       isValid = true;
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (!nameRegex.test(nameValue)) {
       nameError.textContent = nameInput.getAttribute('data-error-message') || 
       'Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы';
-      isNameValid = false;
+      isValid = false;
     } else {
       descError.textContent = '';
       isValid = true;
