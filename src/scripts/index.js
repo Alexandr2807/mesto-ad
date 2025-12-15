@@ -269,8 +269,11 @@ document.addEventListener('DOMContentLoaded', function() {
   placeName.addEventListener('input', validatePlaceForm);
   placeLink.addEventListener('input', validatePlaceForm);
 
+  avatarLink.addEventListener('input', validateAvatarForm);
+
   validateProfileForm();
   validatePlaceForm();
+  validateAvatarForm();
 });
 
 openProfileFormButton.addEventListener("click", () => {
