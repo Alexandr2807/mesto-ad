@@ -217,9 +217,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (placeLinkText === '') {
       placeLinkError.textContent = 'Это поле обязательно для заполнения';
+      placeLinkError.classList.add('popup__error_visible');
       isPlaceLinkValid = false;
     } else if (!isValidUrl(placeLinkText)) {
       placeLinkError.textContent = 'Введите корректную ссылку';
+      placeLinkError.classList.add('popup__error_visible');
       isPlaceLinkValid = false;
     }
 
