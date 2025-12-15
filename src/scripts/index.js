@@ -95,6 +95,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  const nameRegex = /^[A-Za-zА-Яа-яЁё\s\-]+$/;
+  
   function validateForm() {
     let isValid = true;
 
@@ -108,6 +110,10 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (nameValue.length > 40) {
       nameError.textContent = 'Имя слишком длинное';
       isValid = false;
+    } else if (!nameRegex.test(nameValue)) {
+      nameError.textContent = nameInput.getAttribute('data-error-message') || 
+      'Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы';
+      isNameValid = false;
     } else {
       nameError.textContent = '';
       isValid = true;
@@ -123,6 +129,10 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (descValue.length > 200) {
       descError.textContent = 'Описание слишком длинное';
       isValid = false;
+    } else if (!nameRegex.test(nameValue)) {
+      nameError.textContent = nameInput.getAttribute('data-error-message') || 
+      'Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы';
+      isNameValid = false;
     } else {
       descError.textContent = '';
       isValid = true;
@@ -134,7 +144,10 @@ document.addEventListener('DOMContentLoaded', function() {
     return isValid;
   }
 
-  submitEditButton.addEventListener('click', validateForm);
+  nameInput.addEventListener('input', validateForm);
+  descriptionInput.addEventListener('input', validateForm);
+
+  validateForm();
 });
 
 openProfileFormButton.addEventListener("click", () => {
