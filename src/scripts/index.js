@@ -134,10 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return isValid;
   }
 
-  nameInput.addEventListener('input', validateForm);
-  descriptionInput.addEventListener('input', validateForm);
-
-  validateForm();
+  submitEditButton.addEventListener('click', validateForm);
 });
 
 openProfileFormButton.addEventListener("click", () => {
